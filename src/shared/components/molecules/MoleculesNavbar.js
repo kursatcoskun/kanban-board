@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import {
-  Collapse,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarText,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-} from "reactstrap";
+import { Collapse, Nav, Navbar, NavbarToggler } from "reactstrap";
 import AtomsNavbarBrand from "../atoms/atomsNavbarBrand";
 import AtomsNavItem from "../atoms/atomsNavItem";
 import AtomsButton from "../atoms/atomsButton";
+import PropTypes from "prop-types";
 
 const MoleculesNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,11 +28,17 @@ const MoleculesNavbar = (props) => {
               href="https://github.com/reactstrap/reactstrap"
             />
           </Nav>
-          <AtomsButton labelText="Login"/>
+          <AtomsButton labelText="Login" />
         </Collapse>
       </Navbar>
     </div>
   );
+};
+
+MoleculesNavbar.propTypes = {
+  color: PropTypes.string,
+  light: PropTypes.bool,
+  brandText: PropTypes.string,
 };
 
 export default MoleculesNavbar;

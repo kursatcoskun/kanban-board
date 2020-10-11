@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import MoleculesNavbar from "./shared/components/molecules/MoleculesNavbar";
+import LayoutContent from "./layout/layoutContent";
 
 function App() {
   return (
     <div>
-      <MoleculesNavbar color="primary" light={false} brandText="KANBAN-BOARD" />
+      <LayoutContent />
     </div>
   );
 }
