@@ -1,13 +1,11 @@
 import React from "react";
 import "./App.css";
-import { AtomsParagraph } from "./shared";
-import { AtomsHeader } from "./shared/components/atoms/atomsHeader";
+import MoleculesNavbar from "./shared/components/molecules/MoleculesNavbar";
 
 function App() {
   return (
-    <div className="App">
-      <AtomsParagraph textColor="blue">Deneme</AtomsParagraph>
-      <AtomsHeader textColor="blue">Deneme</AtomsHeader>
+    <div>
+      <MoleculesNavbar color="primary" light={false} brandText="KANBAN-BOARD" />
     </div>
   );
 }
