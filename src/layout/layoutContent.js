@@ -5,7 +5,7 @@ import Routes from "./routes";
 const LayoutContent = () => {
   return (
     <div>
-      <MoleculesNavbar brandText="KANBAN-BOARD" color="primary" light="false" />
+      <MoleculesNavbar brandText="KANBAN-BOARD" color="primary" light={false} />
       <Routes />
     </div>
   );

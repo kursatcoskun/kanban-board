@@ -22,11 +22,9 @@ const MoleculesNavbar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <AtomsNavItem text="Components" href="/components" />
-            <AtomsNavItem
-              text="GitHub"
-              href="https://github.com/reactstrap/reactstrap"
-            />
+            <AtomsNavItem text="Dashboard" href="/login" />
+            <AtomsNavItem text="Projects" href="/login" />
+            <AtomsNavItem text="Issues" href="/login" />
           </Nav>
           <AtomsButton labelText="Login" />
         </Collapse>
