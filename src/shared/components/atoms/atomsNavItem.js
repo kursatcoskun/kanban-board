@@ -1,17 +1,8 @@
 import React from "react";
-import { NavItem, NavLink } from "reactstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "reactstrap";
 
 const AtomsNavItem = (props) => {
-  return (
-    <div>
-      <NavItem>
-        <Link to={props.href}>
-          <NavLink href={props.href}>{props.text}</NavLink>
-        </Link>
-      </NavItem>
-    </div>
-  );
+  return <NavLink href={props.href}>{props.text}</NavLink>;
 };
 
 export default AtomsNavItem;
