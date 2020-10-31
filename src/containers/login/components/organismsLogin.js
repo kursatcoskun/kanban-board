@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
@@ -8,10 +8,22 @@ import FormGroup from "reactstrap/es/FormGroup";
 import Input from "reactstrap/es/Input";
 import Label from "reactstrap/es/Label";
 import Button from "reactstrap/es/Button";
+import { bindActionCreators } from "redux";
+import { callLogin } from "../state";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-const OrganismsLogin = () => {
+const OrganismsLogin = (props) => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const history = useHistory();
+  const onSubmit = (data) => {
+    props.actions.login(data);
+  };
+  useEffect(() => {
+    if (!props.loginLoading) {
+      history.push("/dashboard");
+    }
+  }, [props]);
   return (
     <Row>
       <Col sm="4" />
@@ -23,20 +35,13 @@ const OrganismsLogin = () => {
               <Input
                 type="text"
                 id="username"
-                name="email"
+                name="username"
                 placeholder="Enter Username..."
                 invalid={!!errors.email}
                 innerRef={register({
                   required: true,
-                  pattern: {
-                    value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                    message: "Entered value does not match email format",
-                  },
                 })}
               />
-              {errors?.email?.type === "pattern" && (
-                <span role="alert">{errors.email.message}</span>
-              )}
               {errors?.email?.type === "required" && (
                 <span role="alert">Mandatory Field</span>
               )}
@@ -67,4 +72,19 @@ const OrganismsLogin = () => {
   );
 };
 
-export default OrganismsLogin;
+const mapStateToProps = (state) => {
+  return {
+    loginResponse: state.loginReducer.loginResponse,
+    loginLoading: state.loginReducer.loading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: {
+      login: bindActionCreators(callLogin, dispatch),
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrganismsLogin);

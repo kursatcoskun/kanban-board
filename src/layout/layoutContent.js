@@ -1,14 +1,29 @@
 import React from "react";
 import MoleculesNavbar from "../shared/components/molecules/MoleculesNavbar";
 import Routes from "./routes";
+import { connect } from "react-redux";
 
-const LayoutContent = () => {
+const LayoutContent = (props) => {
   return (
     <div>
-      <MoleculesNavbar brandText="KANBAN-BOARD" color="primary" light={false} />
+      <MoleculesNavbar
+        brandText="KANBAN-BOARD"
+        username={
+          props.loginResponse.username || localStorage.getItem("username")
+        }
+        loggedUserExist={!!localStorage.getItem("username")}
+        color="primary"
+        light={false}
+      />
       <Routes />
     </div>
   );
 };
 
-export default LayoutContent;
+const mapStateToProps = (state) => {
+  return {
+    loginResponse: state.loginReducer.loginResponse,
+  };
+};
+
+export default connect(mapStateToProps)(LayoutContent);
