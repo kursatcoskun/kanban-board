@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import {
-  Collapse,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarText,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-} from "reactstrap";
+import { Collapse, Nav, Navbar, NavbarToggler } from "reactstrap";
 import AtomsNavbarBrand from "../atoms/atomsNavbarBrand";
 import AtomsNavItem from "../atoms/atomsNavItem";
 import AtomsButton from "../atoms/atomsButton";
+import PropTypes from "prop-types";
+import NavbarText from "reactstrap/es/NavbarText";
 
 const MoleculesNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,17 +23,27 @@ const MoleculesNavbar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <AtomsNavItem text="Components" href="/components" />
-            <AtomsNavItem
-              text="GitHub"
-              href="https://github.com/reactstrap/reactstrap"
-            />
+            <AtomsNavItem text="Dashboard" href="/login" />
+            <AtomsNavItem text="Projects" href="/login" />
+            <AtomsNavItem text="Issues" href="/login" />
           </Nav>
-          <AtomsButton labelText="Login"/>
+          {!props.loggedUserExist ? (
+            <AtomsButton labelText="Login" />
+          ) : (
+            <NavbarText>{props.username}</NavbarText>
+          )}
         </Collapse>
       </Navbar>
     </div>
   );
+};
+
+MoleculesNavbar.propTypes = {
+  color: PropTypes.string,
+  light: PropTypes.bool,
+  brandText: PropTypes.string,
+  loggedUserExist: PropTypes.bool,
+  username: PropTypes.string,
 };
 
 export default MoleculesNavbar;
