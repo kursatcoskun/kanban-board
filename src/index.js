@@ -9,6 +9,7 @@ import configureStore from "./state/configureStore";
 import initialState from "./state/initialState";
 import { Provider } from "react-redux";
 import "antd/dist/antd.css";
+import "./utils/tokenInterceptor";
 
 const store = configureStore(initialState);
 

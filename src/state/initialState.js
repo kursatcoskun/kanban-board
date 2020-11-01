@@ -3,4 +3,7 @@ export default {
     loginResponse: { token: null, username: null },
     loading: true,
   },
+  issue: {
+    dashboardOpenIssues: [],
+  },
 };

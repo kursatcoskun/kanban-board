@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import loginReducer from "../containers/login/state/loginReducer";
+import issueReducer from "../shared/state/reducers/issueReducer";
 
 const rootReducer = combineReducers({
   loginReducer,
+  issueReducer,
 });
 
 export default rootReducer;
