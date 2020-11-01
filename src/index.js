@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import configureStore from "./state/configureStore";
 import initialState from "./state/initialState";
 import { Provider } from "react-redux";
+import "antd/dist/antd.css";
 
 const store = configureStore(initialState);
 
