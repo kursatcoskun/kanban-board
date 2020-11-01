@@ -15,6 +15,7 @@ export function callLogin(payload) {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", res.data.username);
+        localStorage.setItem("userId", res.data.userId);
         return dispatch(callLoginSuccess(res, false));
       })
       .catch((err) => {
