@@ -1,10 +1,13 @@
 import React from "react";
 import OrganismsDashboard from "./organismsDashboard";
+import Container from "reactstrap/es/Container";
 
 const DashboardPage = () => {
   return (
     <div>
-      <OrganismsDashboard />
+      <Container>
+        <OrganismsDashboard />
+      </Container>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const LayoutContent = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loginResponse: state.loginReducer.loginResponse,
+    loginResponse: state.auth.loginResponse,
   };
 };
 

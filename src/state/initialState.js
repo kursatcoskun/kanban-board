@@ -5,5 +5,7 @@ export default {
   },
   issue: {
     dashboardOpenIssues: [],
+    dashboardProgressIssues: [],
+    dashboardDoneIssues: [],
   },
 };

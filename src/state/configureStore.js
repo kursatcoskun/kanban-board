@@ -11,6 +11,5 @@ export default function configureStore(initialState) {
     applyMiddleware(thunk, reduxImmutableStateInvariant())
   );
 
-  const store = createStore(rootReducer, initialState, middlewares);
-  return store;
+  return createStore(rootReducer, initialState, middlewares);
 }
