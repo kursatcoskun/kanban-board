@@ -23,9 +23,9 @@ const MoleculesNavbar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <AtomsNavItem text="Dashboard" href="/login" />
-            <AtomsNavItem text="Projects" href="/login" />
-            <AtomsNavItem text="Issues" href="/login" />
+            <AtomsNavItem text="Dashboard" href="/dashboard" />
+            <AtomsNavItem text="Projects" href="/projects" />
+            <AtomsNavItem text="Issues" href="/issues" />
           </Nav>
           {!props.loggedUserExist ? (
             <AtomsButton labelText="Login" />

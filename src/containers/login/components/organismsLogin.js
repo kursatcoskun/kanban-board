@@ -74,8 +74,8 @@ const OrganismsLogin = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loginResponse: state.loginReducer.loginResponse,
-    loginLoading: state.loginReducer.loading,
+    loginResponse: state.auth.loginResponse,
+    loginLoading: state.auth.loading,
   };
 };
 

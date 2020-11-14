@@ -1,15 +1,9 @@
 import axios from "axios";
-
+import { API_URL } from "../../utils/properties";
 export const LoginService = {
   login({ username, password }) {
     return axios
-      .post("http://localhost:8000/api/token", { username, password })
-      .then((res) => res.data);
-  },
-
-  getDashboardIssue({ userId, status }) {
-    return axios
-      .get(`http://localhost:8000/api/issue/dashboardIssue/${userId}/${status}`)
+      .post(API_URL + "/token", { username, password })
       .then((res) => res.data);
   },
 };
