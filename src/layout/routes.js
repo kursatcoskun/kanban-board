@@ -4,6 +4,7 @@ import LoginPage from "../containers/login/components/loginPage";
 import WelcomePage from "../containers/welcome-page/components/welcomePage";
 import DashboardPage from "../containers/dashboard/components/dashboardPage";
 import GuardedRoute from "../utils/guardedRoute";
+import ProjectsPage from "../containers/project/components/projectsPage";
 
 const Routes = () => {
   return (
@@ -14,6 +15,11 @@ const Routes = () => {
         <GuardedRoute
           path="/dashboard"
           component={DashboardPage}
+          auth={!!localStorage.getItem("token")}
+        />
+        <GuardedRoute
+          path="/projects"
+          component={ProjectsPage}
           auth={!!localStorage.getItem("token")}
         />
         <Redirect from="/" to="/welcome" />

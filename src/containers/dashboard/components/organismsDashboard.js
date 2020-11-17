@@ -64,7 +64,7 @@ const OrganismsDashboard = (props) => {
           <MoleculesDashboardIssueTable
             message="OPEN"
             type="info"
-            dataSource={openIssues.map((issue) => ({
+            dataSource={props.openIssues.map((issue) => ({
               ...issue,
               projectName: issue.project.projectName,
             }))}
