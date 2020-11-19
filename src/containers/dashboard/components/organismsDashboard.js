@@ -3,7 +3,7 @@ import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import MoleculesDashboardIssueTable from "./moleculesDashboardIssueTable";
 import { bindActionCreators } from "redux";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   getDashboardDoneIssues,
   getDashboardOpenIssues,
@@ -30,12 +30,6 @@ const OrganismsDashboard = (props) => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      sorter: (a, b) => a.id.length - b.id.length,
-      sortDirections: ["descend"],
-    },
-    {
       title: "Description",
       dataIndex: "description",
       sorter: (a, b) => a.description.length - b.description.length,
@@ -49,16 +43,14 @@ const OrganismsDashboard = (props) => {
     },
     {
       key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <Tag color="geekblue">Detail</Tag>
-        </Space>
-      ),
+      title: "Actions",
+      render: (text, record) => <Tag color="geekblue">Detail</Tag>,
     },
   ];
 
   return (
     <div>
+      <br />
       <Row>
         <Col sm="4">
           <MoleculesDashboardIssueTable

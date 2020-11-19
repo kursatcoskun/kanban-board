@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
+import { NavbarBrand } from "reactstrap";
 
 const AtomsNavbarBrand = (props) => {
   return (
