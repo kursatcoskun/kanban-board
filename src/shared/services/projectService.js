@@ -7,4 +7,9 @@ export const ProjectService = {
       .get(`${API_URL}/project/getAllProjects`)
       .then((res) => res.data);
   },
+  createProject(payload) {
+    return axios
+      .post(`${API_URL}/project/CreateProject`, payload)
+      .then((res) => res.data);
+  },
 };

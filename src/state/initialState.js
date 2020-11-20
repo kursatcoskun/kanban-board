@@ -10,5 +10,6 @@ export default {
   },
   project: {
     allProjects: [],
+    createProjectResponse: null,
   },
 };

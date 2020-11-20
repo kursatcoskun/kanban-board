@@ -9,6 +9,12 @@ export default function ProjectReducer(state = initialState.project, action) {
         allProjects: action.payload.data,
         loading: action.loading,
       };
+    case types.CREATE_PROJECT:
+      return {
+        ...state,
+        createProjectResponse: action.payload,
+        loading: action.loading,
+      };
     default:
       return state;
   }

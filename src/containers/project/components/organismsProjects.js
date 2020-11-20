@@ -1,15 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MoleculesProjectsTable from "./moleculesProjectsTable";
 import Container from "reactstrap/es/Container";
 import { bindActionCreators } from "redux";
-import { getAllProjects } from "../../../shared/state/actions";
 import { connect } from "react-redux";
-import { Tag } from "antd";
+import AtomsButton from "../../../shared/components/atoms/atomsButton";
+import Row from "reactstrap/es/Row";
+import Col from "reactstrap/es/Col";
+import { Modal } from "antd";
+import Form from "reactstrap/es/Form";
+import FormGroup from "reactstrap/es/FormGroup";
+import Label from "reactstrap/es/Label";
+import Input from "reactstrap/es/Input";
+import { useForm } from "react-hook-form";
+import { createProject, getAllProjects } from "../../../shared/state/actions";
 
 const OrganismsProjects = (props) => {
+  const [visible, setModalVisibility] = useState(false);
+
+  const { register, handleSubmit, errors } = useForm();
+
   useEffect(() => {
     props.actions.getAllProjects();
   }, [props.actions]);
+
+  const showModal = () => {
+    setModalVisibility(true);
+  };
+
+  const handleOk = (formData) => {
+    props.actions.createProject(formData).then((response) => {
+      if (response.payload) {
+        props.actions.getAllProjects();
+      }
+    });
+    setModalVisibility(false);
+  };
+
+  const handleCancel = (e) => {
+    setModalVisibility(false);
+  };
 
   const columns = [
     {
@@ -35,7 +64,63 @@ const OrganismsProjects = (props) => {
   return (
     <div>
       <Container>
+        <br />
+        <Row>
+          <Col sm="5" />
+          <Col sm="5" />
+          <Col sm="2">
+            <AtomsButton
+              color="primary"
+              labelText="Add Project"
+              click={showModal}
+            />
+          </Col>
+        </Row>
+
+        <br />
         <MoleculesProjectsTable columns={columns} dataSource={props.projects} />
+
+        <Modal
+          title="Add Project"
+          visible={visible}
+          onOk={handleSubmit(handleOk)}
+          onCancel={handleCancel}
+        >
+          <Form>
+            <FormGroup>
+              <Label for="projectName">Project Name</Label>
+              <Input
+                type="text"
+                id="projectName"
+                name="projectName"
+                placeholder="Enter Project Name..."
+                invalid={!!errors.projectName}
+                innerRef={register({
+                  required: true,
+                })}
+              />
+              {errors?.projectName?.type === "required" && (
+                <span role="alert">Mandatory Field</span>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <Label for="projectCode">Project Code</Label>
+              <Input
+                type="text"
+                id="projectCode"
+                name="projectCode"
+                placeholder="Enter Project Code..."
+                invalid={!!errors.projectCode}
+                innerRef={register({
+                  required: true,
+                })}
+              />
+              {errors?.projectCode?.type === "required" && (
+                <span role="alert">Mandatory Field</span>
+              )}
+            </FormGroup>
+          </Form>
+        </Modal>
       </Container>
     </div>
   );
@@ -51,6 +136,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
       getAllProjects: bindActionCreators(getAllProjects, dispatch),
+      createProject: bindActionCreators(createProject, dispatch),
     },
   };
 };

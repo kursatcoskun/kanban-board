@@ -9,10 +9,27 @@ export function getAllProjectsSuccess(res, loading) {
   };
 }
 
-export function getAllProjects() {
+export function createProjectSuccess(res, loading) {
+  return {
+    type: actionTypes.CREATE_PROJECT,
+    payload: res,
+    loading: loading,
+  };
+}
+
+export function getAllProjects(payload) {
   return (dispatch) =>
     ProjectService.getAllProjects()
       .then((res) => dispatch(getAllProjectsSuccess(res, false)))
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function createProject(payload) {
+  return (dispatch) =>
+    ProjectService.createProject(payload)
+      .then((res) => dispatch(createProjectSuccess(res, false)))
       .catch((err) => {
         console.error(err);
       });
