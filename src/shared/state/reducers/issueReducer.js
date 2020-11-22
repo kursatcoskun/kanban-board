@@ -21,6 +21,12 @@ export default function IssueReducer(state = initialState.issue, action) {
         dashboardDoneIssues: action.payload.data,
         loading: action.loading,
       };
+    case types.GET_ISSUE_DETAILS:
+      return {
+        ...state,
+        issueDetails: action.payload.data,
+        loading: action.loading,
+      };
 
     default:
       return state;
