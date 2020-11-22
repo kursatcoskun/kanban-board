@@ -13,4 +13,7 @@ export default {
     allProjects: [],
     createProjectResponse: null,
   },
+  utils: {
+    users: [],
+  },
 };
