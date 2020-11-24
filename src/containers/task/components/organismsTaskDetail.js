@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "reactstrap/es/Container";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
@@ -12,9 +12,15 @@ import Input from "reactstrap/es/Input";
 import { useForm } from "react-hook-form";
 import Form from "reactstrap/es/Form";
 import { Button } from "reactstrap";
+import "draft-js/dist/Draft.css";
+import { Editor, EditorState } from "draft-js";
 
 const OrganismsTaskDetail = (props) => {
-  const { register, handleSubmit, errors, control, setValue } = useForm();
+  const { register, handleSubmit, errors, setValue } = useForm();
+
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
 
   let { id } = useParams();
 
@@ -27,12 +33,15 @@ const OrganismsTaskDetail = (props) => {
     if (props.issueDetails) {
       setValue("assignee", props.issueDetails.assignee.id);
       setValue("taskTitle", props.issueDetails.description);
+      setEditorState(() => EditorState.createWithText(props.issueDetails.details));
     }
   }, [props.issueDetails]);
 
   const submitForm = (formData) => {
     console.log(formData);
   };
+
+  const onChange = () => {};
 
   return (
     <div>
@@ -77,6 +86,17 @@ const OrganismsTaskDetail = (props) => {
                     {errors?.taskTitle?.type === "required" && (
                       <span role="alert">Mandatory Field</span>
                     )}
+                  </FormGroup>
+                  <FormGroup>
+                    <Editor
+                      editorState={editorState}
+                      name="details"
+                      invalid={!!errors.details}
+                      innerRef={register({
+                        required: true,
+                      })}
+                      onChange={setEditorState}
+                    />
                   </FormGroup>
                 </Form>
               </Col>

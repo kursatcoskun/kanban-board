@@ -10,6 +10,7 @@ import initialState from "./state/initialState";
 import { Provider } from "react-redux";
 import "antd/dist/antd.css";
 import "./utils/tokenInterceptor";
+import "draft-js/dist/Draft.css";
 
 const store = configureStore(initialState);
 
