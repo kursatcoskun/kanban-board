@@ -8,6 +8,7 @@ export default {
     dashboardProgressIssues: [],
     dashboardDoneIssues: [],
     issueDetails: null,
+    updateIssueResponse: null,
   },
   project: {
     allProjects: [],

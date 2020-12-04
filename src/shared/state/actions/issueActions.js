@@ -75,3 +75,22 @@ export function getIssueDetails(payload) {
         console.error(err);
       });
 }
+
+export function updateIssueSuccess(res, loading) {
+  return {
+    type: actionTypes.UPDATE_ISSUE,
+    payload: res,
+    loading: loading,
+  };
+}
+
+export function updateIssue(payload) {
+  return (dispatch) =>
+    TaskService.updateIssue(payload)
+      .then((res) => {
+        return dispatch(updateIssueSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}

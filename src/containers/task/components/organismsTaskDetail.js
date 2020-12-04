@@ -3,7 +3,11 @@ import Container from "reactstrap/es/Container";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import { bindActionCreators } from "redux";
-import { getAllUsers, getIssueDetails } from "../../../shared/state/actions";
+import {
+  getAllUsers,
+  getIssueDetails,
+  updateIssue,
+} from "../../../shared/state/actions";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
 import FormGroup from "reactstrap/es/FormGroup";
@@ -11,7 +15,7 @@ import Label from "reactstrap/es/Label";
 import Input from "reactstrap/es/Input";
 import { useForm } from "react-hook-form";
 import Form from "reactstrap/es/Form";
-import { Button } from "reactstrap";
+import { Button, ListGroup, ListGroupItem } from "reactstrap";
 import "draft-js/dist/Draft.css";
 import { Editor, EditorState } from "draft-js";
 
@@ -31,14 +35,26 @@ const OrganismsTaskDetail = (props) => {
 
   useEffect(() => {
     if (props.issueDetails) {
-      setValue("assignee", props.issueDetails.assignee.id);
-      setValue("taskTitle", props.issueDetails.description);
-      setEditorState(() => EditorState.createWithText(props.issueDetails.details));
+      setValue("assigneeId", props.issueDetails.assignee.id);
+      setValue("description", props.issueDetails.description);
+      setValue("issueStatus", props.issueDetails.issueStatus);
+      setEditorState(() =>
+        EditorState.createWithText(props.issueDetails.details || "")
+      );
     }
   }, [props.issueDetails]);
 
+  const statuses = ["OPEN", "CLOSED", "RESOLVED", "IN_PROGRESS"];
+
   const submitForm = (formData) => {
     console.log(formData);
+    props.actions
+      .updateIssue({
+        ...formData,
+        id,
+        projectId: props.issueDetails.project.id,
+      })
+      .then(() => props.actions.getTaskDetail(id));
   };
 
   const onChange = () => {};
@@ -55,9 +71,9 @@ const OrganismsTaskDetail = (props) => {
                     <Label for="exampleSelect">Assignee</Label>
                     <Input
                       type="select"
-                      name="assignee"
-                      placeholder="Enter Project Code..."
-                      invalid={!!errors.assignee}
+                      name="assigneeId"
+                      placeholder="select assignee..."
+                      invalid={!!errors.assigneeId}
                       innerRef={register({
                         required: true,
                       })}
@@ -72,18 +88,41 @@ const OrganismsTaskDetail = (props) => {
                       })}
                     </Input>
                   </FormGroup>
+
                   <FormGroup>
-                    <Label for="taskTitle">Task Title</Label>
+                    <Label for="exampleSelect">Issue Status</Label>
+                    <Input
+                      type="select"
+                      name="issueStatus"
+                      placeholder="Select issue status..."
+                      invalid={!!errors.issueStatus}
+                      innerRef={register({
+                        required: true,
+                      })}
+                      id="issueStatus"
+                    >
+                      {statuses.map((status) => {
+                        return (
+                          <option key={status} value={status}>
+                            {status}
+                          </option>
+                        );
+                      })}
+                    </Input>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="description">Task Title</Label>
                     <Input
                       type="text"
-                      id="taskTitle"
-                      name="taskTitle"
-                      invalid={!!errors.taskTitle}
+                      id="description"
+                      name="description"
+                      invalid={!!errors.description}
                       innerRef={register({
                         required: true,
                       })}
                     />
-                    {errors?.taskTitle?.type === "required" && (
+                    {errors?.description?.type === "required" && (
                       <span role="alert">Mandatory Field</span>
                     )}
                   </FormGroup>
@@ -105,7 +144,20 @@ const OrganismsTaskDetail = (props) => {
               Save Changes
             </Button>
           </Col>
-          <Col sm="3">Task History Section</Col>
+          <Col sm="3" className="mt-3">
+            <ListGroup>
+              {props.issueDetails?.issueHistories.map((history) => {
+                return (
+                  <ListGroupItem>
+                    Issue Changed <br />
+                    Description: {history.description}
+                    <br />
+                    Status: {history.issueStatus}
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
+          </Col>
         </Row>
       </Container>
     </div>
@@ -124,6 +176,7 @@ const mapDispatchToProps = (dispatch) => {
     actions: {
       getTaskDetail: bindActionCreators(getIssueDetails, dispatch),
       getAllUsers: bindActionCreators(getAllUsers, dispatch),
+      updateIssue: bindActionCreators(updateIssue, dispatch),
     },
   };
 };
