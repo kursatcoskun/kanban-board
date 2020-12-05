@@ -13,4 +13,10 @@ export const TaskService = {
       .put(`${API_URL}/issue/updateIssue/${issue.id}`, issue)
       .then((res) => res.data);
   },
+
+  getAllIssuesByAssignee(id) {
+    return axios
+      .get(`${API_URL}/issue/getAllIssuesByAssignee/${id}`)
+      .then((res) => res.data);
+  },
 };

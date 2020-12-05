@@ -75,7 +75,7 @@ export function getDashboardDoneIssues(payload) {
 
 export function getAllIssues(id) {
   return (dispatch) =>
-    DashboardService.getDashboardIssue({ ...id, status: null })
+    TaskService.getAllIssuesByAssignee(id)
       .then((res) => {
         return dispatch(getAllIssuesSuccess(res, false));
       })
