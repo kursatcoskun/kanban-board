@@ -18,6 +18,14 @@ export function getDashboardDoneIssueSuccess(res, loading) {
   };
 }
 
+export function getAllIssuesSuccess(res, loading) {
+  return {
+    type: actionTypes.GET_ALL_ISSUES,
+    payload: res,
+    loading: loading,
+  };
+}
+
 export function getDashboardProgressIssueSuccess(res, loading) {
   return {
     type: actionTypes.GET_DASHBOARD_ISSUE_PROGRESS,
@@ -59,6 +67,17 @@ export function getDashboardDoneIssues(payload) {
     DashboardService.getDashboardIssue({ ...payload, status: "RESOLVED" })
       .then((res) => {
         return dispatch(getDashboardDoneIssueSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function getAllIssues(id) {
+  return (dispatch) =>
+    DashboardService.getDashboardIssue({ ...id, status: null })
+      .then((res) => {
+        return dispatch(getAllIssuesSuccess(res, false));
       })
       .catch((err) => {
         console.error(err);

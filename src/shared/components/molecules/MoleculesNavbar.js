@@ -25,7 +25,7 @@ const MoleculesNavbar = (props) => {
           <Nav className="mr-auto" navbar>
             <AtomsNavItem text="Dashboard" href="/dashboard" />
             <AtomsNavItem text="Projects" href="/projects" />
-            <AtomsNavItem text="Issues" href="/issues" />
+            <AtomsNavItem text="Issues" href="/tasks" />
           </Nav>
           {!props.loggedUserExist ? (
             <AtomsButton labelText="Login" />
