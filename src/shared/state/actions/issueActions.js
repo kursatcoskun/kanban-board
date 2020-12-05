@@ -12,7 +12,7 @@ export function getDashboardOpenIssueSuccess(res, loading) {
 
 export function getDashboardDoneIssueSuccess(res, loading) {
   return {
-    type: actionTypes.GET_DASHBOARD_ISSUE_PROGRESS,
+    type: actionTypes.GET_DASHBOARD_ISSUE_DONE,
     payload: res,
     loading: loading,
   };
@@ -20,7 +20,7 @@ export function getDashboardDoneIssueSuccess(res, loading) {
 
 export function getDashboardProgressIssueSuccess(res, loading) {
   return {
-    type: actionTypes.GET_DASHBOARD_ISSUE_DONE,
+    type: actionTypes.GET_DASHBOARD_ISSUE_PROGRESS,
     payload: res,
     loading: loading,
   };
