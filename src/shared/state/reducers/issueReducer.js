@@ -27,21 +27,24 @@ export default function IssueReducer(state = initialState.issue, action) {
         issueDetails: action.payload.data,
         loading: action.loading,
       };
-
     case types.UPDATE_ISSUE:
       return {
         ...state,
         updateIssueResponse: action.payload.data,
         loading: action.loading,
       };
-
     case types.GET_ALL_ISSUES:
       return {
         ...state,
         allIssues: action.payload.data,
         loading: action.loading,
       };
-
+    case types.CREATE_ISSUE:
+      return {
+        ...state,
+        createIssueResponse: action.payload.data,
+        loading: action.loading,
+      };
     default:
       return state;
   }

@@ -103,11 +103,30 @@ export function updateIssueSuccess(res, loading) {
   };
 }
 
+export function createIssueSuccess(res, loading) {
+  return {
+    type: actionTypes.CREATE_ISSUE,
+    payload: res,
+    loading: loading,
+  };
+}
+
 export function updateIssue(payload) {
   return (dispatch) =>
     TaskService.updateIssue(payload)
       .then((res) => {
         return dispatch(updateIssueSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function createIssue(payload) {
+  return (dispatch) =>
+    TaskService.createIssue(payload)
+      .then((res) => {
+        return dispatch(createIssueSuccess(res, false));
       })
       .catch((err) => {
         console.error(err);

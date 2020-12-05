@@ -19,4 +19,10 @@ export const TaskService = {
       .get(`${API_URL}/issue/getAllIssuesByAssignee/${id}`)
       .then((res) => res.data);
   },
+
+  createIssue(payload) {
+    return axios
+      .post(`${API_URL}/issue/CreateIssue`, payload)
+      .then((res) => res.data);
+  },
 };

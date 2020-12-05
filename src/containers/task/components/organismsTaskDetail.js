@@ -7,7 +7,7 @@ import {
   getAllUsers,
   getIssueDetails,
   updateIssue,
-} from "../../../shared/state/actions";
+} from "../../../shared/state";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
 import FormGroup from "reactstrap/es/FormGroup";
@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import Form from "reactstrap/es/Form";
 import { Button, ListGroup, ListGroupItem } from "reactstrap";
 import "draft-js/dist/Draft.css";
-import { Editor, EditorState } from "draft-js";
+import { Editor, EditorState, convertToRaw } from "draft-js";
 
 const OrganismsTaskDetail = (props) => {
   const { register, handleSubmit, errors, setValue } = useForm();
@@ -47,10 +47,14 @@ const OrganismsTaskDetail = (props) => {
   const statuses = ["OPEN", "CLOSED", "RESOLVED", "IN_PROGRESS"];
 
   const submitForm = (formData) => {
-    console.log(formData);
+    const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
+    const value = blocks
+      .map((block) => (!block.text.trim() && "\n") || block.text)
+      .join("\n");
     props.actions
       .updateIssue({
         ...formData,
+        details: value,
         id,
         projectId: props.issueDetails.project.id,
       })
