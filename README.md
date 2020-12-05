@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The backend repo of this project is like the link;
+https://github.com/kursatcoskun/project-management-api
 
 ## Available Scripts
 
