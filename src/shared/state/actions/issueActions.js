@@ -111,6 +111,14 @@ export function createIssueSuccess(res, loading) {
   };
 }
 
+export function deleteIssueSuccess(res, loading) {
+  return {
+    type: actionTypes.DELETE_ISSUE,
+    payload: res,
+    loading: loading,
+  };
+}
+
 export function updateIssue(payload) {
   return (dispatch) =>
     TaskService.updateIssue(payload)
@@ -127,6 +135,17 @@ export function createIssue(payload) {
     TaskService.createIssue(payload)
       .then((res) => {
         return dispatch(createIssueSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function deleteIssue(payload) {
+  return (dispatch) =>
+    TaskService.deleteIssue(payload)
+      .then((res) => {
+        return dispatch(deleteIssueSuccess(res, false));
       })
       .catch((err) => {
         console.error(err);

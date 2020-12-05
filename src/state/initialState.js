@@ -11,6 +11,7 @@ export default {
     updateIssueResponse: null,
     allIssues: [],
     createIssueResponse: null,
+    deleteIssueResponse: null,
   },
   project: {
     allProjects: [],

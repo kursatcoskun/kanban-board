@@ -45,6 +45,12 @@ export default function IssueReducer(state = initialState.issue, action) {
         createIssueResponse: action.payload.data,
         loading: action.loading,
       };
+    case types.DELETE_ISSUE:
+      return {
+        ...state,
+        deleteIssueResponse: action.payload.data,
+        loading: action.loading,
+      };
     default:
       return state;
   }

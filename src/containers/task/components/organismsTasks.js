@@ -7,6 +7,7 @@ import MoleculesProjectsTable from "../../project/components/moleculesProjectsTa
 import { bindActionCreators } from "redux";
 import {
   createIssue,
+  deleteIssue,
   getAllIssues,
   getAllProjects,
   getAllUsers,
@@ -27,6 +28,10 @@ const OrganismsTasks = (props) => {
   const { register, handleSubmit, errors } = useForm();
 
   const [visible, setModalVisibility] = useState(false);
+
+  const [visibleDeleteModal, setDeleteModalVisibility] = useState(false);
+
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -66,7 +71,7 @@ const OrganismsTasks = (props) => {
             Edit
           </Tag>
 
-          <Tag color="geekblue" onClick={() => clickDetail(record)}>
+          <Tag color="geekblue" onClick={() => clickDeleteAction(record)}>
             Delete
           </Tag>
         </div>
@@ -101,6 +106,26 @@ const OrganismsTasks = (props) => {
     setModalVisibility(true);
   };
 
+  const handleCancelDelete = (e) => {
+    setDeleteModalVisibility(false);
+  };
+
+  const clickDeleteAction = (data) => {
+    setSelectedRecord(data);
+    showDeleteModal();
+  };
+
+  const showDeleteModal = () => {
+    setDeleteModalVisibility(true);
+  };
+
+  const deleteRow = () => {
+    props.actions.deleteIssue(selectedRecord.id).then(() => {
+      props.actions.getAllIssues(localStorage.getItem("userId"));
+      setDeleteModalVisibility(false);
+    });
+  };
+
   const statuses = ["OPEN", "CLOSED", "RESOLVED", "IN_PROGRESS"];
 
   return (
@@ -128,6 +153,15 @@ const OrganismsTasks = (props) => {
           }))}
         />
       </Container>
+
+      <Modal
+        title="Delete Project"
+        visible={visibleDeleteModal}
+        onOk={deleteRow}
+        onCancel={handleCancelDelete}
+      >
+        Are you this record will removed ?
+      </Modal>
 
       <Modal
         title="Create Task"
@@ -250,6 +284,7 @@ const mapDispatchToProps = (dispatch) => {
       getAllProjects: bindActionCreators(getAllProjects, dispatch),
       getAllUsers: bindActionCreators(getAllUsers, dispatch),
       createIssue: bindActionCreators(createIssue, dispatch),
+      deleteIssue: bindActionCreators(deleteIssue, dispatch),
     },
   };
 };

@@ -5,3 +5,4 @@ export const GET_ISSUE_DETAILS = "GET_ISSUE_DETAILS";
 export const UPDATE_ISSUE = "UPDATE_ISSUE";
 export const GET_ALL_ISSUES = "GET_ALL_ISSUES";
 export const CREATE_ISSUE = "CREATE_ISSUE";
+export const DELETE_ISSUE = "DELETE_ISSUE";
