@@ -15,6 +15,12 @@ export default function ProjectReducer(state = initialState.project, action) {
         createProjectResponse: action.payload,
         loading: action.loading,
       };
+    case types.REMOVE_PROJECT:
+      return {
+        ...state,
+        removeProjectResponse: action.payload,
+        loading: action.loading,
+      };
     default:
       return state;
   }

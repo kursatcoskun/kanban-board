@@ -9,8 +9,8 @@ import {
   getDashboardOpenIssues,
   getDashboardProgressIssues,
 } from "../../../shared/state/actions";
-import { Space, Tag } from "antd";
-import {useHistory} from "react-router-dom";
+import { Tag } from "antd";
+import { useHistory } from "react-router-dom";
 
 const OrganismsDashboard = (props) => {
   const history = useHistory();
@@ -33,7 +33,7 @@ const OrganismsDashboard = (props) => {
 
   const clickDetail = (data) => {
     history.push(`/task/detail/${data.id}`);
-  }
+  };
 
   const columns = [
     {
@@ -51,7 +51,11 @@ const OrganismsDashboard = (props) => {
     {
       key: "action",
       title: "Actions",
-      render: (text, record) => <Tag color="geekblue" onClick={() => clickDetail(record)}>Detail</Tag>,
+      render: (text, record) => (
+        <Tag color="geekblue" onClick={() => clickDetail(record)}>
+          Detail
+        </Tag>
+      ),
     },
   ];
 

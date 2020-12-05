@@ -12,7 +12,15 @@ export function getDashboardOpenIssueSuccess(res, loading) {
 
 export function getDashboardDoneIssueSuccess(res, loading) {
   return {
-    type: actionTypes.GET_DASHBOARD_ISSUE_PROGRESS,
+    type: actionTypes.GET_DASHBOARD_ISSUE_DONE,
+    payload: res,
+    loading: loading,
+  };
+}
+
+export function getAllIssuesSuccess(res, loading) {
+  return {
+    type: actionTypes.GET_ALL_ISSUES,
     payload: res,
     loading: loading,
   };
@@ -20,7 +28,7 @@ export function getDashboardDoneIssueSuccess(res, loading) {
 
 export function getDashboardProgressIssueSuccess(res, loading) {
   return {
-    type: actionTypes.GET_DASHBOARD_ISSUE_DONE,
+    type: actionTypes.GET_DASHBOARD_ISSUE_PROGRESS,
     payload: res,
     loading: loading,
   };
@@ -65,11 +73,60 @@ export function getDashboardDoneIssues(payload) {
       });
 }
 
+export function getAllIssues(id) {
+  return (dispatch) =>
+    TaskService.getAllIssuesByAssignee(id)
+      .then((res) => {
+        return dispatch(getAllIssuesSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
 export function getIssueDetails(payload) {
   return (dispatch) =>
     TaskService.getIssueDetail(payload)
       .then((res) => {
         return dispatch(getIssueDetailsSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function updateIssueSuccess(res, loading) {
+  return {
+    type: actionTypes.UPDATE_ISSUE,
+    payload: res,
+    loading: loading,
+  };
+}
+
+export function createIssueSuccess(res, loading) {
+  return {
+    type: actionTypes.CREATE_ISSUE,
+    payload: res,
+    loading: loading,
+  };
+}
+
+export function updateIssue(payload) {
+  return (dispatch) =>
+    TaskService.updateIssue(payload)
+      .then((res) => {
+        return dispatch(updateIssueSuccess(res, false));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+}
+
+export function createIssue(payload) {
+  return (dispatch) =>
+    TaskService.createIssue(payload)
+      .then((res) => {
+        return dispatch(createIssueSuccess(res, false));
       })
       .catch((err) => {
         console.error(err);

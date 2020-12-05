@@ -12,4 +12,10 @@ export const ProjectService = {
       .post(`${API_URL}/project/CreateProject`, payload)
       .then((res) => res.data);
   },
+
+  deleteProject(id) {
+    return axios
+      .delete(`${API_URL}/project/deleteProject/${id}`)
+      .then((res) => res.data);
+  },
 };
