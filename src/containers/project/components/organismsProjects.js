@@ -6,16 +6,24 @@ import { connect } from "react-redux";
 import AtomsButton from "../../../shared/components/atoms/atomsButton";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import { Modal } from "antd";
+import { Modal, Tag } from "antd";
 import Form from "reactstrap/es/Form";
 import FormGroup from "reactstrap/es/FormGroup";
 import Label from "reactstrap/es/Label";
 import Input from "reactstrap/es/Input";
 import { useForm } from "react-hook-form";
-import { createProject, getAllProjects } from "../../../shared/state/actions";
+import {
+  createProject,
+  getAllProjects,
+  removeProject,
+} from "../../../shared/state/actions";
 
 const OrganismsProjects = (props) => {
   const [visible, setModalVisibility] = useState(false);
+
+  const [deleteVisible, setDeleteModalVisibility] = useState(false);
+
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const { register, handleSubmit, errors } = useForm();
 
@@ -25,6 +33,10 @@ const OrganismsProjects = (props) => {
 
   const showModal = () => {
     setModalVisibility(true);
+  };
+
+  const showDeleteModal = () => {
+    setDeleteModalVisibility(true);
   };
 
   const handleOk = (formData) => {
@@ -38,6 +50,18 @@ const OrganismsProjects = (props) => {
 
   const handleCancel = (e) => {
     setModalVisibility(false);
+  };
+
+  const clickDeleteAction = (data) => {
+    setSelectedRecord(data);
+    showDeleteModal();
+  };
+
+  const deleteRow = () => {
+    props.actions.removeProject(selectedRecord.id).then(() => {
+      props.actions.getAllProjects();
+      setDeleteModalVisibility(false);
+    });
   };
 
   const columns = [
@@ -59,6 +83,15 @@ const OrganismsProjects = (props) => {
       sorter: (a, b) => a.projectCode.length - b.projectCode.length,
       sortDirections: ["descend"],
     },
+    {
+      key: "action",
+      title: "Actions",
+      render: (text, record) => (
+        <Tag color="geekblue" onClick={() => clickDeleteAction(record)}>
+          Delete
+        </Tag>
+      ),
+    },
   ];
 
   return (
@@ -79,6 +112,15 @@ const OrganismsProjects = (props) => {
 
         <br />
         <MoleculesProjectsTable columns={columns} dataSource={props.projects} />
+
+        <Modal
+          title="Delete Project"
+          visible={deleteVisible}
+          onOk={deleteRow}
+          onCancel={handleCancel}
+        >
+          Are you this record will removed ?
+        </Modal>
 
         <Modal
           title="Add Project"
@@ -137,6 +179,7 @@ const mapDispatchToProps = (dispatch) => {
     actions: {
       getAllProjects: bindActionCreators(getAllProjects, dispatch),
       createProject: bindActionCreators(createProject, dispatch),
+      removeProject: bindActionCreators(removeProject, dispatch),
     },
   };
 };
