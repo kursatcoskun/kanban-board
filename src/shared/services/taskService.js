@@ -25,4 +25,10 @@ export const TaskService = {
       .post(`${API_URL}/issue/CreateIssue`, payload)
       .then((res) => res.data);
   },
+
+  deleteIssue(id) {
+    return axios
+      .delete(`${API_URL}/issue/deleteIssue/${id}`)
+      .then((res) => res.data);
+  },
 };
